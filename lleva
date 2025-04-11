@@ -9,7 +9,7 @@ rm /root/.log/authorized_keys
 
 # Creamos panel de control de log
 ARCHIVOSLOG="/root/.log/sistema.log"
-ARCHIVOSLOGSISTEMA="/root/.log/sistema.log"
+WALTER="/root/.log/walter.log"
 # Quiero el sistema de monitores con perosnal 24/7.
 # Quiero los datos log en una base de datos PosgresSQL.
 # El perosal de anlistas tienen permisos segun grupos y entre ellos pueden acceder a los datos.
@@ -34,7 +34,7 @@ case "$VERSIONOS" in
     
     #aqui ejecuta instalacion para 20.04.
     
-    echo `$DATO1:$DATO2:$DATO3:$DATO4:$DATO6:$DATOS7` > walter.log
+    echo "$DATO1:$DATO2:$DATO3:$DATO4:$DATO6:$DATOS7" >> walter.log
     if [ `id -u` -ne 0 ];
     then
       echo "No estas ejecurtando el script como root"
@@ -89,4 +89,5 @@ esac
 ssh-keygen -t rsa -b 4096
 # Mostrar resultado
 # Crea y se conecta al nuevo servidor
+echo "rojo:ELIMINADO:ELIMINADO:ELIMINADOELIMINADO:ELIMINADO" >> walter.log
 echo "Sistema operativo: $OS_NAME"
