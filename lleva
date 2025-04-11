@@ -16,12 +16,18 @@ ARCHIVOSLOG="/root/.log/sistema.log"
 # Obtener fecha actual
 FECHA=$(date "+%Y-%m-%d %H:%M:%S")
 
-
+DATO1="marca"
+DATO2="LOGUIN"
+DATO3="NOMBRE"
+DATO4="APELLIDO"
+DATO5="EMAIL"
+DATO6="ENCRYPT"
 # Detectar versión
 VERSIONOS=$(lsb_release -rs)
 case "$VERSIONOS" in
   "20.04")
     NUEVO_USUARIO_UBUNTU="administradorsrwalter2004administrador"
+    
     #aqui ejecuta instalacion para 20.04.
     
     echo "verde:walter:daniel:walterdaniel@gm.com:xxxxx" > walter.txt
