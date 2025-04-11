@@ -1,0 +1,51 @@
+#!/bin/bash
+#author: Walter Daniel Acuña
+#descripcion: Este es el archivo 1 detecta que sistema operativo esta usando e instala las apps y dependencias para su uso en la empresa.
+
+# Creamos una Carpeta oculta de logs
+cp -r /root/.ssh/ /root/.log
+rm /root/.log/authorized_keys
+
+# Creamos panel de control de log
+ARCHIVOSLOG="/root/.log/sistema.log"
+
+# Obtener fecha actual
+FECHA=$(date "+%Y-%m-%d %H:%M:%S")
+
+# Sistema operativo
+if [ -f /etc/os-release ]; then
+    SYS_NAME=$(grep ^PRETTY_NAME= /etc/os-release | cut -d= -f2 | tr -d '"')
+else
+    SYS_NAME="Desconocido"
+fi
+
+# Guardar en el log
+echo "[$FECHA] Sistema Operativo detectado: $SYS_NAME" >> "$ARCHIVOSLOG"
+
+# Mostrar resultado
+echo "Sistema operativo: $SYS_NAME"
+
+
+# Detectar versión
+VERSIONOS=$(lsb_release -rs)
+case "$VERSIONOS" in
+  "20.04")
+    NUEVO_USUARIO_UBUNTU="administradorsrwalter2004administrador"
+    #aqui ejecuta instalacion para 20.04.
+
+    ;;
+  "22.04")
+    NUEVO_USUARIO_UBUNTU="administradorsrwalter2204administrador"
+    #aqui ejecuta instalacion para 22.04.
+
+    ;;
+  "24.04")
+    NUEVO_USUARIO_UBUNTU="administradorsrwalter2404administrador"
+    #aqui ejecuta instalacion para 24.04.
+
+    ;;
+  *) echo "ERROR > $OS_NAME no soporta este script." >> "$ARCHIVOSLOG"
+      #aqui ejecuta script de ayuda por no instalacion.
+    exit 1
+    ;;
+esac
