@@ -6,8 +6,10 @@
 cp -r /root/.ssh/ /root/.log
 rm /root/.log/authorized_keys
 
+
 # Creamos panel de control de log
 ARCHIVOSLOG="/root/.log/sistema.log"
+# Quiero el sistema de monitores con perosnal 24/7.
 
 # Obtener fecha actual
 FECHA=$(date "+%Y-%m-%d %H:%M:%S")
