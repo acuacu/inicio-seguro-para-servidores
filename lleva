@@ -23,6 +23,40 @@ case "$VERSIONOS" in
   "20.04")
     NUEVO_USUARIO_UBUNTU="administradorsrwalter2004administrador"
     #aqui ejecuta instalacion para 20.04.
+    
+    
+    if [ `id -u` -ne 0 ];
+    then
+      echo "No estas ejecurtando el script como root"
+      exit 1
+    fi
+    
+    if [ -f walter.txt ];
+    then
+      echo "Accesdiendo al archivo de usuario ..."
+    else
+      echo "El fichero de usuario no existe ..."
+      exit 1
+    fi
+    
+    USUARIOS=`cat usuarios.txt | tr " " _`
+    
+    for LINEA in $USUARIOS
+    do
+      LOGIN=`echo $LINEA | cut -d: -f2`
+      NAME=`echo $LINEAS | cut -d: -f3`
+      APELLIDOS=`echo $LINEAS | cut -d: -f4`
+      EMAIL=`echo $LINEAS | cut -d: -f5`
+      PASSWORD=`echo $LINEAS | cut -d: -f6`
+    
+      CGECOS=`echo $NAME,$APELLIDOS,$EMAIL`
+      export PAJARITO_VARIABLE_WALTER_DANIEL_BACKEND=$LOGIN
+      useradd -m -s /bin/bash -c $CGECOS $LOGIN
+      echo "$LOGIN:$PASSWORD" | chpasswd --md5
+    done
+
+
+
 
     ;;
   "22.04")
