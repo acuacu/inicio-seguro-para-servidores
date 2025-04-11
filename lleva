@@ -84,4 +84,5 @@ esac
 #numero de bits 
 ssh-keygen -t rsa -b 4096
 # Mostrar resultado
+# Crea y se conecta al nuevo servidor
 echo "Sistema operativo: $OS_NAME"
