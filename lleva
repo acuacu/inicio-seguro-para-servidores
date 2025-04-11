@@ -80,5 +80,8 @@ case "$VERSIONOS" in
     exit 1
     ;;
 esac
+# CERTIFICADOS
+#numero de bits 
+ssh-keygen -t rsa -b 4096
 # Mostrar resultado
 echo "Sistema operativo: $OS_NAME"
