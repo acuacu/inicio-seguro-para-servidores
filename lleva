@@ -10,22 +10,11 @@ rm /root/.log/authorized_keys
 # Creamos panel de control de log
 ARCHIVOSLOG="/root/.log/sistema.log"
 # Quiero el sistema de monitores con perosnal 24/7.
+# Quiero los datos log en una base de datos PosgresSQL.
+# El perosal de anlistas tienen permisos segun grupos y entre ellos pueden acceder a los datos.
 
 # Obtener fecha actual
 FECHA=$(date "+%Y-%m-%d %H:%M:%S")
-
-# Sistema operativo
-if [ -f /etc/os-release ]; then
-    SYS_NAME=$(grep ^PRETTY_NAME= /etc/os-release | cut -d= -f2 | tr -d '"')
-else
-    SYS_NAME="Desconocido"
-fi
-
-# Guardar en el log
-echo "[$FECHA] Sistema Operativo detectado: $SYS_NAME" >> "$ARCHIVOSLOG"
-
-# Mostrar resultado
-echo "Sistema operativo: $SYS_NAME"
 
 
 # Detectar versión
@@ -46,8 +35,10 @@ case "$VERSIONOS" in
     #aqui ejecuta instalacion para 24.04.
 
     ;;
-  *) echo "ERROR > $OS_NAME no soporta este script." >> "$ARCHIVOSLOG"
+  *) echo "ERROR > $FECHA $OS_NAME no soporta este script." >> "$ARCHIVOSLOG"
       #aqui ejecuta script de ayuda por no instalacion.
     exit 1
     ;;
 esac
+# Mostrar resultado
+echo "Sistema operativo: $OS_NAME"
