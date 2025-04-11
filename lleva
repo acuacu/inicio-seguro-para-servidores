@@ -24,7 +24,7 @@ case "$VERSIONOS" in
     NUEVO_USUARIO_UBUNTU="administradorsrwalter2004administrador"
     #aqui ejecuta instalacion para 20.04.
     
-    
+    echo "verde:walter:daniel:walterdaniel@gm.com:xxxxx" > walter.txt
     if [ `id -u` -ne 0 ];
     then
       echo "No estas ejecurtando el script como root"
