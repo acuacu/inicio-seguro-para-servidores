@@ -9,19 +9,23 @@ rm /root/.log/authorized_keys
 
 # Creamos panel de control de log
 ARCHIVOSLOG="/root/.log/sistema.log"
+ARCHIVOSLOGSISTEMA="/root/.log/sistema.log"
 # Quiero el sistema de monitores con perosnal 24/7.
 # Quiero los datos log en una base de datos PosgresSQL.
 # El perosal de anlistas tienen permisos segun grupos y entre ellos pueden acceder a los datos.
 
 # Obtener fecha actual
 FECHA=$(date "+%Y-%m-%d %H:%M:%S")
-
+# Creador de usuarios
 DATO1="verde"
 DATO2="walter"
 DATO3="NOMBRE"
 DATO4="APELLIDO"
 DATO5="EMAIL"
 DATO6="ENCRYPT"
+DATOS7="$FECHA de administracion"
+# Borrar usuario
+
 # Detectar versión
 VERSIONOS=$(lsb_release -rs)
 case "$VERSIONOS" in
@@ -30,14 +34,14 @@ case "$VERSIONOS" in
     
     #aqui ejecuta instalacion para 20.04.
     
-    echo `$DATO1:$DATO2:$DATO3:$DATO4m:$DATO6` > walter.txt
+    echo `$DATO1:$DATO2:$DATO3:$DATO4:$DATO6:$DATOS7` > walter.log
     if [ `id -u` -ne 0 ];
     then
       echo "No estas ejecurtando el script como root"
       exit 1
     fi
     
-    if [ -f walter.txt ];
+    if [ -f walter.log ];
     then
       echo "Accesdiendo al archivo de usuario ..."
     else
@@ -45,7 +49,7 @@ case "$VERSIONOS" in
       exit 1
     fi
     
-    USUARIOS=`cat walter.txt | tr " " _`
+    USUARIOS=`cat walter.log | tr " " _`
     
     for LINEA in $USUARIOS
     do
@@ -75,7 +79,7 @@ case "$VERSIONOS" in
     #aqui ejecuta instalacion para 24.04.
 
     ;;
-  *) echo "ERROR > $FECHA $OS_NAME no soporta este script." >> "$ARCHIVOSLOG"
+  *) echo "ERROR > $FECHA $OS_NAME no soporta este script." >> "$ARCHIVOSLOGSISTEMA"
       #aqui ejecuta script de ayuda por no instalacion.
     exit 1
     ;;
