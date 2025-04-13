@@ -1,3 +1,4 @@
+#!/bin/bash
 sudo apt update
 
 #si es 20.04
