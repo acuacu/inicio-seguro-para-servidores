@@ -1,5 +1,5 @@
 #!/bin/bash
-apt -y update
+sudo apt update && sudo upgrade -y
 
 #si es 20.04
 apt -y install apt-transport-https ca-certificates curl software-properties-common
