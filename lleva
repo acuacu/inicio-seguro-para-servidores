@@ -24,7 +24,7 @@ apt -y install nginx curl
 # Obtener fecha actual
 FECHA=$(date "+%Y-%m-%d %H:%M:%S")
 # Creador de usuarios
-DATO1="verde"
+DATO1="verde" 
 DATO2="walter"
 DATO3="NOMBRE"
 DATO4="APELLIDO"
