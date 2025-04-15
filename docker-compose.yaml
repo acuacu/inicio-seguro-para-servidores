@@ -26,12 +26,18 @@ services:
     volumes: ['./:/var/www/html'] ######## Directorios del servidor donde se alojan los archivos estaticos.
     environment:
       WORDPRESS_DB_HOST: db:3306 ######### Idica la conexion a la base de datos, para que WORDPRES pueda acceder al contenedor antes creado
-      WORDPRESS_DB_USER: administradorcarlos ######## Usuario de la (NOMBRE DE LA EMPRESA, PRODUCTO O PERSONA QUE CONTRATA)
+      WORDPRESS_DB_USER: ejemplotiendaderopra ######## Usuario de la (NOMBRE DE LA EMPRESA, PRODUCTO O PERSONA QUE CONTRATA)
       WORDPRESS_DB_PASSWORD: Contraseña123 ########  Contraseña de la las tablas Principales ( Se usan con el nombre de la empresa)
     networks:
-      - wpsite ######## Red interna de contenedores
-
+      - wpsite:
+        ipv4_address: 128.8.8.8 ######## Red interna de contenedores
+      
 networks:
   wpsite: # Red de salida que cifra con certificadoes SSL/HTTPS conexion segura al ipv6 publico.
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 128.8.0.0/16
+          gateway: 128.8.0.1
 volumes:
   db_data:
