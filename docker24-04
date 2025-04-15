@@ -7,5 +7,10 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docke
 apt update
 sudo apt install docker-ce
 
+# INSTALA DOCKER COMOPOSE DE UBUNTU 22.04 ES EL MIMO CODIGO PARA UBUNTU 24.04
+mkdir -p ~/.docker/cli-plugins/
+curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+chmod +x ~/.docker/cli-plugins/docker-compose
+
 
 #https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
