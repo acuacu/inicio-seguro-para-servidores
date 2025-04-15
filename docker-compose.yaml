@@ -1,4 +1,4 @@
-ersion: '3'
+version: '3'
 
 services:
   # INICIAMOS EL CONTENEDOR DE BASE DE DATOS MYSQL 5.7
