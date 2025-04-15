@@ -14,6 +14,13 @@ WALTER="/root/.log/walter.log"
 # Quiero los datos log en una base de datos PosgresSQL.
 # El perosal de anlistas tienen permisos segun grupos y entre ellos pueden acceder a los datos.
 
+
+#INSTALAMOS NGINX servidore proxy 
+apt -y install nginx curl
+#CREAMOS CERTIFICADOS SSL/HTTPS PARA QUE Nginx pueda enrutar y encriptar las ip intarnas con la IPV6 externa
+
+
+
 # Obtener fecha actual
 FECHA=$(date "+%Y-%m-%d %H:%M:%S")
 # Creador de usuarios
