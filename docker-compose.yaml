@@ -3,40 +3,50 @@ version: '3'
 services:
   # INICIAMOS EL CONTENEDOR DE BASE DE DATOS MYSQL 5.7
   db:
-      image: mariadb:10.6.4-focal
-      command: '--default-authentication-plugin=mysql_native_password'
-      volumes: 
-        - ./db:/var/lib/mysql ######## Directorios del servidor donde se alojan los archivos encriptados.
-      restart: always ######## Restart always=siempre (siempre el contenedor se mantiene en linea)
-      environment: 
-          MYSQL_ROOT_PASSWORD: Contraseña123 ######## (Contraseña root de la base de datos) minimo 50 caracteres
-          MYSQL_DATABASE: ejemplotiendaderopra ######## Nombre de las tablas principales del que devantan la base de datos.
-          MYSQL_USER: administradorcarlos ######## Usuario de la (NOMBRE DE LA EMPRESA, PRODUCTO O PERSONA QUE CONTRATA)
-          MYSQL_PASSWORD: Contraseña123 ########  Contraseña de la las tablas Principales ( Se usan con el nombre de la empresa)
-      networks:
-        - wpsite ######## Red interna de contenedores
+    image: mariadb:10.6.4-focal
+    command: '--default-authentication-plugin=mysql_native_password'
+    volumes: 
+      - ./db:/var/lib/mysql ######## Directorios del servidor donde se alojan los archivos encriptados.
+    restart: always ######## Restart always=siempre (siempre el contenedor se mantiene en linea)
+    environment: 
+      - MYSQL_ROOT_PASSWORD:Contraseña123 ######## (Contraseña root de la base de datos) minimo 50 caracteres
+      - MYSQL_DATABASE:ejemplotiendaderopra ######## Nombre de las tablas principales del que devantan la base de datos.
+      - MYSQL_USER:administradorcarlos ######## Usuario de la (NOMBRE DE LA EMPRESA, PRODUCTO O PERSONA QUE CONTRATA)
+      - MYSQL_PASSWORD:Contraseña123 ########  Contraseña de la las tablas Principales ( Se usan con el nombre de la empresa)
+    expose:
+      - 3306
+      - 33060
+    networks:
+      - source ######## Red interna de contenedores
 
   # INICIAMOS EL CONTENEDOR WORDPRESS
   wordpress:
-      depends_on: ######### Indica que si el contenedor de (db) no inicio este tampoco
-        - db
-      image: wordpress:latest ######### Restart always=siempre (siempre el contenedor se mantiene en linea)
-      ports: # Puertos de expuesto de ip publica
-        - '8000:80' 
-      restart: always ######### Restart always=siempre (siempre el contenedor se mantiene en linea)
-      volumes: ['./:/var/www/html'] ######## Directorios del servidor donde se alojan los archivos estaticos.
-      environment:
-          WORDPRESS_DB_HOST: db:3306 ######### Idica la conexion a la base de datos, para que WORDPRES pueda acceder al contenedor antes creado
-          WORDPRESS_DB_USER: ejemplotiendaderopra ######## Usuario de la (NOMBRE DE LA EMPRESA, PRODUCTO O PERSONA QUE CONTRATA)
-          WORDPRESS_DB_PASSWORD: Contraseña123 ########  Contraseña de la las tablas Principales ( Se usan con el nombre de la empresa)
-      networks:
-          wpsite:
-              ipv4_address: 128.8.8.8 ######## Red interna de contenedores
+    depends_on: ######### Indica que si el contenedor de (db) no inicio este tampoco
+      - db
+    image: wordpress:latest ######### Restart always=siempre (siempre el contenedor se mantiene en linea)
+    ports: # Puertos de expuesto de ip publica
+      - 80
+    restart: always ######### Restart always=siempre (siempre el contenedor se mantiene en linea)
+    volumes:
+      - ./wp_data:/var/www/html
+    environment:
+      - WORDPRESS_DB_HOST:db:3306 ######### Idica la conexion a la base de datos, para que WORDPRES pueda acceder al contenedor antes creado
+      - WORDPRESS_DB_USER:administradorcarlos ######## Usuario de la (NOMBRE DE LA EMPRESA, PRODUCTO O PERSONA QUE CONTRATA)
+      - WORDPRESS_DB_PASSWORD:Contraseña123 ########  Contraseña de la las tablas Principales ( Se usan con el nombre de la empresa)
+      - WORDPRESS_DB_NAME:ejemplotiendaderopra
+    networks:
+      source:
+        ipv4_address: 128.19.0.8 ######## Red interna de contenedores
       
 networks:
-  wpsite: # Red de salida que cifra con certificadoes SSL/HTTPS conexion segura al ipv6 publico.
+  source: # Red de salida que cifra con certificadoes SSL/HTTPS conexion segura al ipv6 publico.
     driver: bridge
     ipam:
       config:
-        - subnet: 128.8.0.0/16
-          gateway: 128.8.0.1
+        - subnet: 128.19.0.0/16
+          gateway: 128.19.0.1
+
+volumes:
+  wp_data:
+  db:
+  
